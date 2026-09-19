@@ -10,8 +10,9 @@ function integer(value: unknown): number | null {
   return typeof value === "number" && Number.isFinite(value) ? Math.trunc(value) : null;
 }
 
-function normalize(raw: any): MarketplaceProduct | null {
-  const item = raw?.item_basic ?? raw?.item_card?.item ?? raw;
+function normalize(raw: unknown): MarketplaceProduct | null {
+  const source = raw as Record<string, any>;
+  const item = source?.item_basic ?? source?.item_card?.item ?? source;
   if (!item?.itemid || !item?.shopid || !item?.name) return null;
 
   const ratingCount = item?.item_rating?.rating_count;
