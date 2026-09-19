@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String            @id @default(cuid())
+  itemId      String            @unique
+  shopId      String?
+  shopName    String?
+  name        String
+  imageUrl    String?
+  productUrl  String?
+  category    String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  snapshots   ProductSnapshot[]
+}
+
+model ProductSnapshot {
+  id             String   @id @default(cuid())
+  productId      String
+  collectedAt    DateTime @default(now())
+  price          Decimal? @db.Decimal(12, 2)
+  discountPct    Float?
+  sales          Int?
+  rating         Float?
+  reviewCount    Int?
+  commissionRate Float?
+  rankPosition   Int?
+  source         String
+  raw            Json?
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, collectedAt])
+}
+
+model ProductMetric {
+  id             String   @id @default(cuid())
+  productId      String
+  calculatedAt   DateTime @default(now())
+  windowHours    Int
+  salesDelta     Int?
+  salesVelocity  Float?
+  acceleration   Float?
+  priceDeltaPct  Float?
+  reviewDelta    Int?
+  opportunity    Float?
+
+  @@index([productId, calculatedAt])
+}
