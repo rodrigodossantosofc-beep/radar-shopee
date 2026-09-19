@@ -1,37 +1,22 @@
 # Radar Shopee
 
-Painel de inteligência de mercado para Shopee Brasil, inspirado na experiência de análise do Kalodata.
+Painel próprio de inteligência de mercado para Shopee Brasil.
 
-## Objetivo
+## Fluxo
 
-Coletar dados reais disponíveis via Shopee Affiliate/Open APIs e fontes públicas permitidas, armazenar snapshots históricos e calcular sinais próprios de:
+Shopee Brasil pública → coletor → snapshots históricos → PostgreSQL → motor de inteligência → dashboard.
 
-- velocidade de vendas observada
-- aceleração
-- tendência
-- variação de preço
-- crescimento de avaliações
-- concorrência
-- score de oportunidade
+## Coletor público
 
-## Arquitetura inicial
+A primeira fonte não depende de conta de afiliado.
 
-```
-Shopee API / fontes públicas
-          ↓
-       Collector
-          ↓
-      PostgreSQL
-          ↓
-   Analytics Engine
-          ↓
-     REST API
-          ↓
-   Dashboard Web
-```
+- `GET /api/marketplace/search?q=aparelho%20abdominal&limit=30`
+- `GET /api/marketplace/product?itemId=...&shopId=...`
 
-## Status
+O coletor mantém ausentes como `null`: não inventamos quantidade vendida, avaliações ou qualquer métrica que a fonte não exponha.
 
-MVP em construção.
+Endpoints públicos da Shopee podem mudar ou aplicar proteção anti-bot. Por isso a arquitetura separa a fonte do restante do sistema; podemos trocar/adicionar provedores sem reescrever o painel.
 
-> Regra do projeto: não inventar métricas. Cada dado será marcado como coletado, calculado ou indisponível.
+## Próxima camada
+
+Persistência automática dos snapshots no PostgreSQL e cálculo de velocidade, aceleração e score de oportunidade.
