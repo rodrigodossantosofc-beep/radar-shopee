@@ -1,22 +1,33 @@
-# Radar Shopee
+# Radar Pulse — Google AI Studio + Colab
 
-Painel próprio de inteligência de mercado para Shopee Brasil.
+Interface premium para usar o notebook do Colab como motor temporário de análise.
 
-## Fluxo
+## Como funciona
 
-Shopee Brasil pública → coletor → snapshots históricos → PostgreSQL → motor de inteligência → dashboard.
+1. Abra o notebook **Radar_TikTok_Colab_Motor_API.ipynb** no Google Colab.
+2. Execute as células até o final.
+3. A última célula gera uma URL parecida com `https://xxxx.trycloudflare.com`.
+4. Abra esta interface.
+5. Cole a URL em **Conectar motor**.
+6. Rode o modo **Em alta** ou **Palavra-chave**.
 
-## Coletor público
+## Google AI Studio
 
-A primeira fonte não depende de conta de afiliado.
+No Google AI Studio, abra o modo Build e escolha **Importar do GitHub**.  
+Use o repositório `rodrigodossantosofc-beep/radar-shopee` e a branch `tiktok-radar-ai-studio`.
 
-- `GET /api/marketplace/search?q=aparelho%20abdominal&limit=30`
-- `GET /api/marketplace/product?itemId=...&shopId=...`
+O painel não precisa de chave Gemini para funcionar. O frontend conversa diretamente com a API temporária do Colab.
 
-O coletor mantém ausentes como `null`: não inventamos quantidade vendida, avaliações ou qualquer métrica que a fonte não exponha.
+## Segurança
 
-Endpoints públicos da Shopee podem mudar ou aplicar proteção anti-bot. Por isso a arquitetura separa a fonte do restante do sistema; podemos trocar/adicionar provedores sem reescrever o painel.
+- Não coloque `msToken` ou cookies do TikTok no GitHub.
+- O token fica somente no notebook Colab.
+- O frontend guarda apenas a URL temporária do motor no `localStorage`.
+- O Quick Tunnel é temporário: ao reiniciar o Colab, copie a nova URL para o painel.
 
-## Próxima camada
+## Rodar localmente
 
-Persistência automática dos snapshots no PostgreSQL e cálculo de velocidade, aceleração e score de oportunidade.
+```bash
+npm install
+npm run dev
+```
