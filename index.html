@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070b12">
+<title>Radar Pulse</title>
+<style>
+:root{--bg:#070b12;--panel:#0d1522;--line:rgba(148,163,184,.14);--muted:#718097;--text:#eef5fb;--cyan:#5bd8ff;--green:#64efb2;--amber:#ffcf70;--red:#ff8a7d;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:var(--bg)}
+*{box-sizing:border-box}body{margin:0;min-width:320px;min-height:100vh;background:radial-gradient(circle at 82% 8%,rgba(91,216,255,.08),transparent 24%),radial-gradient(circle at 42% 105%,rgba(89,75,255,.06),transparent 27%),var(--bg)}
+button,input,select{font:inherit}button{color:inherit}.shell{min-height:100vh;display:grid;grid-template-columns:238px 1fr}.side{min-height:100vh;position:sticky;top:0;padding:26px 18px;border-right:1px solid var(--line);background:rgba(7,11,18,.84);backdrop-filter:blur(20px);display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:11px;padding:0 6px 28px}.mark{width:39px;height:39px;border-radius:12px;display:grid;place-items:center;color:#06111b;font-weight:900;background:linear-gradient(145deg,#a2edff,#47bfff);box-shadow:0 0 30px rgba(91,216,255,.15)}.brand strong{display:block;font-size:13px;letter-spacing:.13em}.brand small{display:block;color:#5e6c82;font-size:9px;letter-spacing:.09em;text-transform:uppercase;margin-top:3px}.nav{display:grid;gap:6px}.nav button{border:1px solid transparent;border-radius:10px;padding:11px 12px;text-align:left;background:transparent;color:#6c7b91}.nav .active{color:#dff7ff;background:rgba(91,216,255,.06);border-color:rgba(91,216,255,.12)}.nav span{float:right;color:#485568;font-size:9px}.engine{margin-top:auto;padding:13px;border:1px solid var(--line);border-radius:14px;background:rgba(13,21,34,.56)}.status{display:flex;align-items:center;gap:10px}.dot{width:8px;height:8px;border-radius:50%;background:#475569;box-shadow:0 0 0 5px rgba(71,85,105,.12)}.dot.on{background:var(--green);box-shadow:0 0 0 5px rgba(100,239,178,.08),0 0 16px rgba(100,239,178,.35)}.engine strong{display:block;font-size:11px}.engine small{display:block;color:#607087;font-size:9px;margin-top:3px}.main{min-width:0;padding:36px clamp(20px,4vw,62px) 60px}.top{max-width:1320px;margin:auto;display:flex;justify-content:space-between;align-items:end;gap:20px}.eyebrow{font-size:9px;font-weight:800;letter-spacing:.18em;color:#617086;margin-bottom:7px}.top h1{margin:0;font-size:clamp(26px,3.3vw,40px);letter-spacing:-.045em;font-weight:650}.pill{height:34px;display:flex;align-items:center;gap:7px;padding:0 12px;border:1px solid var(--line);border-radius:999px;color:#6d7b90;font-size:10px}.pill.on{color:#9af3cc;border-color:rgba(100,239,178,.18);background:rgba(100,239,178,.04)}.connect-stage{max-width:1320px;margin:auto;min-height:72vh;display:grid;place-items:center}.connect-card{width:min(620px,100%);padding:clamp(26px,5vw,46px);border:1px solid rgba(148,163,184,.15);border-radius:24px;background:linear-gradient(145deg,rgba(17,26,42,.92),rgba(9,14,24,.94));box-shadow:0 30px 90px rgba(0,0,0,.28);position:relative;overflow:hidden}.connect-card:before{content:"";position:absolute;width:280px;height:280px;right:-130px;top:-140px;border-radius:50%;background:rgba(91,216,255,.09);filter:blur(50px)}.plug{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(145deg,#9bebff,#4fc6ff);color:#06111b;font-size:22px;margin-bottom:23px}.connect-card h2{margin:0 0 14px;font-size:clamp(30px,5vw,47px);line-height:1.02;letter-spacing:-.055em}.connect-card p{margin:0 0 27px;max-width:500px;color:#8492a6;font-size:13px;line-height:1.65}.connect-card code{color:#afeaff}.label{display:block;color:#8d9bb0;font-size:10px;font-weight:700;margin-bottom:8px}.urlbox{height:54px;border:1px solid var(--line);border-radius:13px;background:rgba(4,8,15,.58);display:flex;align-items:center;gap:10px;padding:0 14px}.urlbox:focus-within{border-color:rgba(91,216,255,.45);box-shadow:0 0 0 4px rgba(91,216,255,.05)}.urlbox input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:#dce6ef;font-size:12px}.primary,.scan{border:0;cursor:pointer;background:linear-gradient(135deg,#7ae4ff,#49baff);color:#06101a;font-weight:800;box-shadow:0 12px 32px rgba(73,186,255,.12)}.primary{width:100%;height:50px;border-radius:12px;margin-top:12px}.primary:disabled,.scan:disabled{opacity:.65;cursor:progress}.micro{margin-top:13px;color:#59677b;font-size:9px}.error{margin-top:11px;padding:10px 12px;border:1px solid rgba(255,138,125,.15);border-radius:10px;background:rgba(255,138,125,.06);color:#ffc1ba;font-size:10px;line-height:1.45}.hidden{display:none!important}.workspace{max-width:1320px;margin:30px auto 0}.command{padding:15px;border:1px solid var(--line);border-radius:16px;background:rgba(13,21,34,.62);backdrop-filter:blur(20px)}.tabs{display:flex;gap:5px;margin-bottom:12px}.tab{border:1px solid transparent;border-radius:9px;padding:8px 11px;background:transparent;color:#69788e;font-size:10px;cursor:pointer}.tab.active{color:#bceeff;background:rgba(91,216,255,.06);border-color:rgba(91,216,255,.13)}.controls{display:grid;grid-template-columns:minmax(220px,1fr) 145px 145px;gap:9px}.searchbox{height:48px;padding:0 13px;border:1px solid var(--line);border-radius:11px;background:rgba(4,8,15,.55);display:flex;align-items:center;gap:9px}.searchbox input{width:100%;border:0;outline:0;background:transparent;color:#e4ecf5;font-size:12px}.searchbox input:disabled{color:#607087}.selectbox{padding:6px 10px;border:1px solid var(--line);border-radius:11px;background:rgba(4,8,15,.55)}.selectbox small{display:block;color:#59677c;font-size:8px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}.selectbox select{width:100%;border:0;outline:0;background:#080e18;color:#c8d2df;font-size:10px}.scan{border-radius:11px;font-size:11px}.empty{min-height:45vh;display:grid;place-items:center;align-content:center;text-align:center;color:#637187}.radar-icon{width:70px;height:70px;border:1px solid rgba(91,216,255,.12);border-radius:50%;display:grid;place-items:center;color:#8de8ff;font-size:23px;box-shadow:0 0 0 18px rgba(91,216,255,.025),0 0 0 36px rgba(91,216,255,.012)}.empty h3{margin:28px 0 6px;color:#dce6ef;font-size:16px}.empty p{margin:0;font-size:10px}.loading{min-height:44vh;display:grid;place-items:center;align-content:center;text-align:center}.scanner{width:220px;height:6px;border-radius:10px;background:#111a28;overflow:hidden;position:relative}.scanner:after{content:"";position:absolute;width:45%;height:100%;left:-50%;background:linear-gradient(90deg,transparent,#67ddff,transparent);animation:scan 1.2s infinite ease-in-out}@keyframes scan{to{left:105%}}.loading h3{margin:22px 0 6px;font-size:16px}.loading p{margin:0;color:#637187;font-size:10px}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}.kpi{min-height:100px;padding:17px;border:1px solid var(--line);border-radius:14px;background:rgba(13,21,34,.58)}.kpi span{display:block;color:#647389;font-size:9px;margin-bottom:7px}.kpi strong{font-size:23px;letter-spacing:-.045em}.kpi.accent{border-color:rgba(91,216,255,.17);background:linear-gradient(145deg,rgba(91,216,255,.07),rgba(13,21,34,.58))}.signal{margin-top:9px;padding:26px;border:1px solid rgba(91,216,255,.14);border-radius:17px;background:radial-gradient(circle at 84% 20%,rgba(91,216,255,.10),transparent 24%),linear-gradient(145deg,rgba(17,28,44,.9),rgba(9,14,24,.88));display:flex;justify-content:space-between;align-items:center;gap:20px}.signal h2{margin:0;text-transform:capitalize;font-size:clamp(28px,4vw,46px);letter-spacing:-.05em}.signal p{margin:9px 0 0;color:#8492a6;font-size:11px}.bigscore{font-size:66px;font-weight:700;letter-spacing:-.07em;color:#a0edff}.panel{margin-top:9px;border:1px solid var(--line);border-radius:16px;background:rgba(13,21,34,.55);overflow:hidden}.panelhead{padding:18px 19px;border-bottom:1px solid var(--line)}.panelhead h3{margin:0;font-size:14px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:740px}th{padding:10px 14px;text-align:left;color:#526075;font-size:8px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--line)}td{padding:12px 14px;color:#a6b2c2;font-size:10px;border-bottom:1px solid rgba(148,163,184,.07)}tbody tr:hover{background:rgba(255,255,255,.015)}td b{color:#e3ebf3;text-transform:capitalize}.score{display:inline-flex;min-width:35px;justify-content:center;padding:5px 7px;border:1px solid rgba(148,163,184,.1);border-radius:7px;background:rgba(148,163,184,.06);font-weight:800}.score.hot{color:#9bffd3;border-color:rgba(100,239,178,.15);background:rgba(100,239,178,.06)}.score.warm{color:#ffdc98;border-color:rgba(255,207,112,.14);background:rgba(255,207,112,.06)}a{color:#86dcf8;text-decoration:none}.last{padding:15px 2px 0;text-align:right;color:#4e5c70;font-size:8px}
+@media(max-width:900px){.shell{grid-template-columns:76px 1fr}.side{padding:20px 12px;align-items:center}.brand>div:last-child,.nav span,.engine .copy{display:none}.brand{padding:0 0 24px}.nav button{width:48px;height:44px;padding:0;text-align:center;font-size:0}.engine{width:48px;padding:12px}.status{justify-content:center}.kpis{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){.shell{display:block}.side{position:sticky;z-index:5;top:0;min-height:0;height:62px;flex-direction:row;justify-content:space-between;padding:11px 14px;border-right:0;border-bottom:1px solid var(--line)}.brand{padding:0}.brand>div:last-child{display:block}.nav{display:none}.engine{margin:0;width:auto;border:0;background:transparent}.engine .copy{display:block}.main{padding:22px 13px 48px}.top{align-items:flex-start}.top h1{font-size:27px}.pill{display:none}.connect-stage{min-height:70vh}.connect-card{padding:24px 19px;border-radius:20px}.connect-card h2{font-size:34px}.controls{grid-template-columns:1fr}.searchbox,.selectbox,.scan{min-height:48px}.kpis{grid-template-columns:1fr 1fr}.kpi{min-height:84px;padding:13px}.kpi strong{font-size:19px}.signal{display:block}.bigscore{margin-top:18px;font-size:54px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="side">
+  <div class="brand"><div class="mark">R</div><div><strong>RADAR PULSE</strong><small>market intelligence</small></div></div>
+  <div class="nav"><button class="active">◫ Radar</button><button disabled>↗ Histórico <span>em breve</span></button><button disabled>✦ Insights <span>em breve</span></button></div>
+  <div class="engine"><div class="status"><div id="sideDot" class="dot"></div><div class="copy"><strong id="sideStatus">Motor offline</strong><small id="sideSub">Cole a URL do Colab</small></div></div></div>
+</aside>
+
+<main class="main">
+  <header class="top">
+    <div><div class="eyebrow">INTELIGÊNCIA DE MERCADO</div><h1>Produtos e sinais em movimento.</h1></div>
+    <div id="topPill" class="pill">● offline</div>
+  </header>
+
+  <section id="connectStage" class="connect-stage">
+    <div class="connect-card">
+      <div class="plug">⌁</div>
+      <div class="eyebrow">CONECTAR MOTOR</div>
+      <h2>Seu painel. Seu Colab.<br>Sem backend pago.</h2>
+      <p>Execute o notebook até o final e cole aqui o endereço <code>trycloudflare.com</code> gerado pelo motor.</p>
+      <label class="label">URL do motor Colab</label>
+      <div class="urlbox"><span>↗</span><input id="engineUrl" placeholder="https://xxxx.trycloudflare.com" spellcheck="false"></div>
+      <div id="connectError" class="error hidden"></div>
+      <button id="connectBtn" class="primary">Conectar motor →</button>
+      <div class="micro">✓ A URL fica salva somente neste navegador.</div>
+    </div>
+  </section>
+
+  <section id="workspace" class="workspace hidden">
+    <div class="command">
+      <div class="tabs"><button id="trendTab" class="tab active">🔥 Em alta</button><button id="keywordTab" class="tab">⌕ Palavra-chave</button><button id="disconnectBtn" class="tab" style="margin-left:auto">Trocar motor</button></div>
+      <div class="controls">
+        <div class="searchbox"><span>⌕</span><input id="keyword" disabled placeholder="Analisar o feed de tendências"></div>
+        <div class="selectbox"><small>Amostra</small><select id="count"><option value="30">30 vídeos</option><option value="60" selected>60 vídeos</option><option value="80">80 vídeos</option><option value="100">100 vídeos</option></select></div>
+        <button id="scanBtn" class="scan">▶ Rodar radar</button>
+      </div>
+      <div id="runError" class="error hidden"></div>
+    </div>
+
+    <div id="emptyState" class="empty"><div class="radar-icon">◎</div><h3>O motor está pronto.</h3><p>Escolha o modo acima e rode sua primeira análise.</p></div>
+    <div id="loadingState" class="loading hidden"><div class="scanner"></div><h3>O Colab está lendo os sinais.</h3><p>Coletando, normalizando e comparando força de oportunidade.</p></div>
+    <div id="results" class="hidden"></div>
+  </section>
+</main>
+</div>
+
+<script>
+var engineUrl = localStorage.getItem("radar_engine_url") || "";
+var mode = "trending";
+var $ = function(id){ return document.getElementById(id); };
+var fmt = new Intl.NumberFormat("pt-BR",{notation:"compact",maximumFractionDigits:1});
+
+$("engineUrl").value = engineUrl;
+
+function baseUrl(){ return $("engineUrl").value.trim().replace(/\/+$/,""); }
+function setError(id,msg){ var el=$(id); el.textContent=msg||""; el.classList.toggle("hidden",!msg); }
+function scoreBadge(n){ var cls=n>=80?"score hot":n>=60?"score warm":"score"; return '<span class="'+cls+'">'+Math.round(n||0)+'</span>'; }
+function escapeHtml(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c];}); }
+
+function setConnected(on){
+  $("connectStage").classList.toggle("hidden",on);
+  $("workspace").classList.toggle("hidden",!on);
+  $("sideDot").classList.toggle("on",on);
+  $("sideStatus").textContent=on?"Motor online":"Motor offline";
+  $("sideSub").textContent=on?"Colab conectado":"Cole a URL do Colab";
+  $("topPill").className=on?"pill on":"pill";
+  $("topPill").textContent=on?"● Colab conectado":"● offline";
+}
+
+async function connect(){
+  var url=baseUrl();
+  if(!url){setError("connectError","Cole o link gerado no final do Colab.");return;}
+  setError("connectError","");
+  $("connectBtn").disabled=true;$("connectBtn").textContent="Testando conexão...";
+  try{
+    var ctrl=new AbortController();var timer=setTimeout(function(){ctrl.abort();},12000);
+    var res=await fetch(url+"/health",{signal:ctrl.signal});clearTimeout(timer);
+    if(!res.ok)throw new Error("HTTP "+res.status);
+    var data=await res.json();
+    if(data.status!=="online")throw new Error("Motor não respondeu como esperado.");
+    engineUrl=url;$("engineUrl").value=url;localStorage.setItem("radar_engine_url",url);setConnected(true);
+  }catch(e){setConnected(false);setError("connectError","Não consegui alcançar o motor. Confirme se o Colab continua aberto e copie novamente o link trycloudflare.com.");}
+  finally{$("connectBtn").disabled=false;$("connectBtn").textContent="Conectar motor →";}
+}
+
+function setMode(next){
+  mode=next;
+  $("trendTab").classList.toggle("active",mode==="trending");
+  $("keywordTab").classList.toggle("active",mode==="keyword");
+  $("keyword").disabled=mode==="trending";
+  $("keyword").placeholder=mode==="trending"?"Analisar o feed de tendências":"Ex.: achadinhos, skincare, cozinha";
+  if(mode==="trending")$("keyword").value="";
+}
+
+function render(data){
+  var opp=data.opportunities||[], videos=data.videos||[], sum=data.summary||{};
+  var creators=new Set(videos.map(function(v){return v.creator;}).filter(Boolean)).size;
+  var top=opp[0];
+  var html='<div class="kpis">'+
+    '<div class="kpi"><span>Vídeos analisados</span><strong>'+fmt.format(sum.videos_analisados||0)+'</strong></div>'+
+    '<div class="kpi"><span>Oportunidades</span><strong>'+fmt.format(sum.oportunidades||0)+'</strong></div>'+
+    '<div class="kpi accent"><span>Maior score</span><strong>'+Math.round(sum.maior_score||0)+'/100</strong></div>'+
+    '<div class="kpi"><span>Criadores únicos</span><strong>'+fmt.format(creators)+'</strong></div></div>';
+
+  if(top){
+    html+='<div class="signal"><div><div class="eyebrow">SINAL MAIS FORTE DA AMOSTRA</div><h2>'+escapeHtml(top.termo)+'</h2><p>Aparece em '+top.videos+' vídeo(s), com '+top.creators+' criador(es) e '+fmt.format(top.views_total||0)+' visualizações somadas.</p></div><div class="bigscore">'+Math.round(top.opportunity_score||0)+'</div></div>';
+  }
+
+  html+='<div class="panel"><div class="panelhead"><div class="eyebrow">RANKING</div><h3>Oportunidades detectadas</h3></div><div class="tablewrap"><table><thead><tr><th>#</th><th>Termo / sinal</th><th>Score</th><th>Vídeos</th><th>Criadores</th><th>Views</th><th>Eng.</th><th></th></tr></thead><tbody>';
+  opp.slice(0,30).forEach(function(x,i){
+    var link=x.exemplo_url?'<a target="_blank" rel="noreferrer" href="'+escapeHtml(x.exemplo_url)+'">abrir ↗</a>':"";
+    html+='<tr><td>'+(i+1)+'</td><td><b>'+escapeHtml(x.termo)+'</b></td><td>'+scoreBadge(x.opportunity_score)+'</td><td>'+x.videos+'</td><td>'+x.creators+'</td><td>'+fmt.format(x.views_total||0)+'</td><td>'+((x.engagement||0)*100).toFixed(1)+'%</td><td>'+link+'</td></tr>';
+  });
+  html+='</tbody></table></div></div>';
+  html+='<div class="last">Última análise: '+new Date(data.generated_at).toLocaleString("pt-BR")+'</div>';
+  $("results").innerHTML=html;$("results").classList.remove("hidden");
+}
+
+async function runRadar(){
+  if(mode==="keyword"&&!$("keyword").value.trim()){setError("runError","Digite uma palavra-chave para pesquisar.");return;}
+  setError("runError","");$("emptyState").classList.add("hidden");$("results").classList.add("hidden");$("loadingState").classList.remove("hidden");$("scanBtn").disabled=true;$("scanBtn").textContent="Analisando...";
+  try{
+    var res=await fetch(baseUrl()+"/api/radar",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode:mode,keyword:mode==="keyword"?$("keyword").value.trim():"",count:Number($("count").value)})});
+    var data=await res.json();
+    if(!res.ok){var d=data&&data.detail;throw new Error((d&&d.message)||d||("HTTP "+res.status));}
+    render(data);
+  }catch(e){setError("runError",(e&&e.message?e.message:"Falha na análise")+". Se o Colab ficou inativo, execute novamente a célula do link.");$("emptyState").classList.remove("hidden");}
+  finally{$("loadingState").classList.add("hidden");$("scanBtn").disabled=false;$("scanBtn").textContent="▶ Rodar radar";}
+}
+
+$("connectBtn").onclick=connect;
+$("trendTab").onclick=function(){setMode("trending");};
+$("keywordTab").onclick=function(){setMode("keyword");};
+$("scanBtn").onclick=runRadar;
+$("disconnectBtn").onclick=function(){localStorage.removeItem("radar_engine_url");engineUrl="";$("engineUrl").value="";$("results").classList.add("hidden");$("emptyState").classList.remove("hidden");setConnected(false);};
+$("engineUrl").addEventListener("keydown",function(e){if(e.key==="Enter")connect();});
+$("keyword").addEventListener("keydown",function(e){if(e.key==="Enter")runRadar();});
+if(engineUrl)connect();else setConnected(false);
+</script>
+</body>
+</html>
